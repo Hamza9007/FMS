@@ -25,10 +25,10 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
     echo "<tr class='text-center'>
       <td><a href='uploads/inquiries/{$row['file_name']}' download>{$row['file_name']}</a></td>
       <td>";
-    if ($row['status'] === 'pending') {
+    if ($row['status'] === 'Pending') {
       echo "<a href='updateStatus.php?id={$row['id']}&status=accepted'>Accept</a> |
             <a href='updateStatus.php?id={$row['id']}&status=rejected'>Reject</a>";
-    } else if ($row['status'] === 'accepted') {
+    } else if ($row['status'] === 'Accepted') {
       // after upload quotation only show file upladed successfully text
       if($row['quotation_file']){
         echo "Uploaded File";
@@ -39,17 +39,17 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
               <button type='submit' class='btn btn-primary col-3'>Quotation</button>
             </form>";
       }
-    } else if ($row['status'] === 'rejected') {
+    } else if ($row['status'] === 'Rejected') {
       echo "Rejected";
     }
     echo "</td>
     <td>" .($row['quotation_file'] ? "<a href='uploads/quotations/{$row['quotation_file']}' download>{$row['quotation_file']}</a>" : "Not Uploaded") . "</td>
     <td>";
     if ($row['quotation_file']) {
-      if($row['client_status'] === 'pending'){
-        echo "<a href='clientStatus.php?id={$row['id']}&client_status=accepted'>Accept</a> |
-              <a href='clientStatus.php?id={$row['id']}&client_status=rejected'>Reject</a>";
-      }else if($row['client_status'] === 'accepted'){
+      if($row['client_status'] === 'Pending'){
+        echo "<a href='clientStatus.php?id={$row['id']}&client_status=Accepted'>Accept</a> |
+              <a href='clientStatus.php?id={$row['id']}&client_status=Rejected'>Reject</a>";
+      }else if($row['client_status'] === 'Accepted'){
         echo "Accepted";
       }else{
         echo "Rejected";
@@ -57,7 +57,9 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
     }
     echo"</td>
     <td>";
-if($row['payment_status'] === 'received'){
+if($row['payment_status'] === 'Received'){
+  echo "Closed";
+}else if($row['payment_status'] === 'Rejected'){
   echo "Closed";
 }else{
   echo "Pending";

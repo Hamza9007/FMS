@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Unbounded:wght@200..900&display=swap');
+
+
+.family{
+font-family: 'Unbounded', sans-serif;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Center the entire section */
+  .gradient-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: #f5f5f5;
+  }
+  
+  /* Optional: Improve card appearance */
+  .card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Gradient background for the right side */
+  .gradient-custom-2 {
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    color: white;
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Font family */
+  .family {
+    font-family: 'Unbounded', sans-serif;
+  }
+  
+  /* Responsive fix */
+  @media (max-width: 768px) {
+    .gradient-custom-2 {
+      border-radius: 0 0 20px 20px;
+      min-height: 200px;
+      text-align: center;
+    }
+  }
+
+   
+.modern-form input,
+.modern-form select {
+background-color: #f9f9f9;
+border: 1px solid #ccc;
+border-radius: 10px;
+font-size: 15px;
+margin-bottom: 20px;
+width: 100%;
+color: #333;
+transition: all 0.3s ease;
+font-family: 'Unbounded', sans-serif;
+}
+  
+.modern-form input::placeholder {
+color: #aaa;
+}
+  
+.modern-form input:focus,
+.modern-form select:focus {
+outline: none;
+border-color: #ee7724;
+background-color: #fff;
+box-shadow: 0 0 0 3px rgba(238, 119, 36, 0.2);
+}
+
+.btn-custom {
+    background: #fccb90;
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+    border: none;
+    font-size: 16px;
+    }

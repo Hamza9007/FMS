@@ -11,25 +11,31 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand family" href="#">Admin Panel</a>
+<nav class="navbar navbar-expand-lg navbar-dark headerBg">
+  <a class="navbar-brand family HeaderText" href="adminPanel.php"><?= $_SESSION['username'];?> (Admin)</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#adminNav" aria-controls="adminNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-
   <div class="collapse navbar-collapse" id="adminNav">
-    <ul class="navbar-nav family ml-auto">
-    
-    </ul>
-    <span class="navbar-text text-white family mr-3">Hello, <?= $_SESSION['username'];?> (Admin)</span>
-    <a href="logout.php" class="btn btn-outline-light  family btn-sm">Logout</a>
+  <div class="d-flex justify-content-center w-100">
+  <ul class="navbar-nav flex-row family">
+  <li class="nav-item">
+    <a class="nav-link menuText" href="adminPanel.php">Dashboard</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link ml-3 menuText" href="allUsers.php">All Users</a>
+  </li>
+  </ul>
+</div>
+    <a href="logout.php" class="btn btn-primary btn-block gradient-custom-2 family col-1 ml-auto">Logout</a>
   </div>
 </nav>
+
 
 <script src="script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
