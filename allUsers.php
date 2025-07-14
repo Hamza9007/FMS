@@ -16,7 +16,7 @@
   </form>
 </div>
 
-<div class="all-inquiries-section">
+<div class="p-4 mx-5">
 <h3 class="family subheading">Manage Users</h3>
 <table class="table">
   <thead>

@@ -28,16 +28,7 @@ html, body {
     border-radius: 20px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
   }
-  
-  /* Gradient background for the right side */
-  .gradient-custom-2 {
-    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    color: white;
-    border-top-right-radius: .3rem;
-    border-bottom-right-radius: .3rem;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-  }
-  
+ 
   /* Font family */
   .family {
     font-family: 'Unbounded', sans-serif;
@@ -79,9 +70,17 @@ box-shadow: 0 0 0 3px rgba(238, 119, 36, 0.2);
 }
 
 .btn-custom {
-    background: #fccb90;
-    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    border: none;
-    font-size: 16px;
-    }
+  background: #fccb90;
+  background: -webkit-linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+  background: linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+  border: none;
+  font-size: 18px;
+  border-radius: 15px;
+}
+.btn-custom:hover {
+background: #fccb90;
+background: -webkit-linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+background: linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+transform: translateY(-2px);
+text-decoration: none;
+}

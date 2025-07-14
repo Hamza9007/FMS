@@ -32,7 +32,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
   </li>
   </ul>
 </div>
-    <a href="logout.php" class="btn btn-primary btn-block gradient-custom-2 family col-1 ml-auto">Logout</a>
+    <a href="logout.php" class="btn family p-2 col-1 text-white logout-btn">Logout</a>
   </div>
 </nav>
 

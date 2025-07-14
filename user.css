@@ -1,0 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Unbounded:wght@200..900&display=swap');
+
+/* Chat Widget Styles */
+#chatWidget {
+  font-family: 'Unbounded', sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  background: #fff;
+}
+#chatWidget #chatMessages {
+  background: #f9f9f9;
+  height: 220px;
+  overflow-y: auto;
+  padding: 10px;
+}
+#chatWidget input#chatInput {
+  border: none;
+  outline: none;
+  padding: 8px;
+  border-radius: 0 0 0 8px;
+  background: #f4f4f4;
+  font-size: 15px;
+}
+#chatWidget button#sendChatBtn {
+  background: #2957A4;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 0 0 8px 0;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+#chatWidget button#sendChatBtn:hover {
+  background: #ee7724;
+}
+#chatWidget .chat-bubble {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
+  max-width: 75%;
+  margin-bottom: 4px;
+  word-break: break-word;
+}
+#chatWidget .chat-bubble.user {
+  background: #2957A4;
+  color: #fff;
+  text-align: right;
+}
+#chatWidget .chat-bubble.admin {
+  background: #e0e0e0;
+  color: #222;
+  text-align: left;
+}
+@media (max-width: 600px) {
+  #chatWidget {
+    width: 98vw !important;
+    right: 1vw !important;
+    left: 1vw !important;
+  }
+}
+
+.family{
+font-family: 'Unbounded', sans-serif;
+}
+
+
+/* Navbar container */
+.custom-navbar {
+background: #ee7724;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+border-bottom: 3px solid #2957A4;
+border-radius: 0 0 16px 16px;
+}
+  
+  /* Brand username */
+.nav-user-name {
+font-size: 25px;
+color: #ffffff !important;
+border-radius: 8px;
+display: inline-block;
+transform: translateX(0);
+background-color: transparent;
+text-decoration: none;
+background-color: #2957A4;
+padding: 8px 20px;
+  }
+  
+.nav-user-name .role-tag {
+font-size: 14px;
+color: #ffffff;
+margin-left: 5px;
+}
+  
+  /* Logout button */
+.logout-btn {
+background: linear-gradient(to right, #2957A4, #2957A4, #2957A4);
+padding: 8px 20px;
+font-size: 14px;
+border-radius: 10px;
+text-decoration: none;
+font-weight: 500;
+transition: background 0.3s ease, transform 0.2s ease;
+}
+  
+.logout-btn:hover {
+background: linear-gradient(to right, #2957A4, #2957A4, #2957A4);
+transform: translateY(-1px);
+text-decoration: none;
+color: white;
+}
+  
+  /* Responsive adjustment */
+@media (max-width: 768px) {
+.logout-btn {
+width: 100%;
+margin-top: 10px;
+text-align: center;
+}
+}
+  
+.subheading{
+font-size: 35px;
+color: #2957A4 !important;
+font-weight: 500;
+padding: 10px;
+margin-bottom: 0px;
+border-radius: 8px;
+}
+
+.link-text{
+color: #2957A4;
+}
+
+.link-text:hover{
+color: #E86629;
+text-decoration: none;
+}
+
+.table-header{
+background: #fccb90;
+background: -webkit-linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+background: linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+color: #ffffff;
+font-weight: 400;
+font-size: 16px;  
+}
+
+.table-title{
+font-size: 16px;
+font-weight: 400;
+color: #ffffff;
+letter-spacing: 0.5px;
+}
+
+.table {
+border-radius: 12px;
+overflow: hidden;
+background: #fff;
+box-shadow: 5px 8px 15px #00000021;
+margin-top: 10px;
+}
+          
+.table thead {
+background: #f4f6fb;
+font-weight: 600;
+color: #333;
+}
+          
+.table th,
+.table td {
+padding: 12px 16px;
+vertical-align: middle;
+text-align: center;
+border-color: #eaeaea;
+}
+          
+.table tbody tr:hover {
+background-color: #f9f9f9;
+}
+
+.btn-custom {
+    background: #fccb90;
+    background: -webkit-linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+    background: linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+    border: none;
+    font-size: 18px;
+}
+
+.btn-custom:hover {
+    background: #fccb90;
+    background: -webkit-linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+    background: linear-gradient(to right, #ee7724, #ee7724, #ee7724, #ee7724);
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* Po and Invoice File Upload style */
+.custom-po-label {
+  background-color: #ffe9cc;
+  color: #ee7724;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Unbounded', sans-serif;
+  display: inline-block;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  justify-content: center;
+}
+.custom-po-label:hover {
+  background-color: #ffd39f;
+}
+
+/* Display selected file name */
+.po-file-name {
+  max-width: 200px;
+  font-size: 16px;
+  color: #ff8c00;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  font-family: 'Unbounded', sans-serif;
+}
+/* upload po and invoice form */
+.poBtn{
+  background: #ee7724;
+  border: none;
+  padding: 8px 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Unbounded', sans-serif;
+  border-radius: 5px;
+  color: #ffffff;
+  margin-left: 10px;
+}
+.poBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+
+
+
+
+
+
+
