@@ -20,13 +20,15 @@
         .then(data => {
           if (data.success) {
             const chat = document.getElementById('chatMessages');
-            chat.innerHTML = data.messages.map(msg =>
-              `<div style='margin-bottom:10px;text-align:${msg.sender===sender?'right':'left'};'>
-                <span style='display:inline-block;padding:6px 12px;border-radius:16px;max-width:75%;background:${msg.sender===sender?'#2957A4':'#e0e0e0'};color:${msg.sender===sender?'#fff':'#222'};'>${msg.message}</span>
-                <div style='font-size:11px;color:#888;'>${msg.sender} - ${msg.sent_at}</div>
-              </div>`
-            ).join('');
-            chat.scrollTop = chat.scrollHeight;
+            // Only scroll if user is already at (or near) the bottom
+const isAtBottom = (chat.scrollHeight - chat.scrollTop - chat.clientHeight) < 20;
+chat.innerHTML = data.messages.map(msg =>
+  `<div style='margin-bottom:10px;text-align:${msg.sender===sender?'right':'left'};'>
+    <span style='display:inline-block;padding:6px 12px;border-radius:16px;max-width:75%;background:${msg.sender===sender?'#2957A4':'#e0e0e0'};color:${msg.sender===sender?'#fff':'#222'};'>${msg.message}</span>
+    <div style='font-size:11px;color:#888;'>${msg.sender} - ${msg.sent_at}</div>
+  </div>`
+).join('');
+if (isAtBottom) chat.scrollTop = chat.scrollHeight;
             // Notification logic
             // Get last seen admin message id from localStorage
             let lastSeenAdminMsgId = localStorage.getItem('userLastSeenAdminMsgId');
@@ -110,8 +112,8 @@
         setTimeout(() => { fetchMessages(); }, 5000);
       };
 
-      setInterval(fetchMessages, 5000);
-      fetchMessages();
+      setInterval(fetchMessages, 5000); // Poll for new messages every 5 seconds
+fetchMessages();
     });
   }
 
@@ -169,7 +171,7 @@
         console.log('ADMIN: Started polling for unread messages (auto on load).');
       }
 
-      setInterval(fetchMessages, 5000);
+      
       fetchMessages();
     });
 
@@ -180,13 +182,15 @@
         .then(data => {
           if (data.success) {
             const chat = document.getElementById('chatMessages');
-            chat.innerHTML = data.messages.map(msg =>
-              `<div style='margin-bottom:10px;text-align:${msg.sender===sender?'right':'left'};'>
-                <span style='display:inline-block;padding:6px 12px;border-radius:16px;max-width:75%;background:${msg.sender===sender?'#2957A4':'#e0e0e0'};color:${msg.sender===sender?'#fff':'#222'};'>${msg.message}</span>
-                <div style='font-size:11px;color:#888;'>${msg.sender} - ${msg.sent_at}</div>
-              </div>`
-            ).join('');
-            chat.scrollTop = chat.scrollHeight;
+            // Only scroll if user is already at (or near) the bottom
+const isAtBottom = (chat.scrollHeight - chat.scrollTop - chat.clientHeight) < 20;
+chat.innerHTML = data.messages.map(msg =>
+  `<div style='margin-bottom:10px;text-align:${msg.sender===sender?'right':'left'};'>
+    <span style='display:inline-block;padding:6px 12px;border-radius:16px;max-width:75%;background:${msg.sender===sender?'#2957A4':'#e0e0e0'};color:${msg.sender===sender?'#fff':'#222'};'>${msg.message}</span>
+    <div style='font-size:11px;color:#888;'>${msg.sender} - ${msg.sent_at}</div>
+  </div>`
+).join('');
+if (isAtBottom) chat.scrollTop = chat.scrollHeight;
             // Track last seen message for this user
             if (data.messages.length > 0) {
               lastSeenMsgIds[receiver] = data.messages[data.messages.length-1].id;
@@ -291,7 +295,7 @@
       setTimeout(() => { fetchMessages(); }, 200);
     };
 
-    setInterval(fetchMessages, 5000);
+    
     fetchMessages();
     setInterval(pollAdminUnreadCounts, 5000);
     pollAdminUnreadCounts();
