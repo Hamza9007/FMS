@@ -1,7 +1,4 @@
-<?php
-include 'config.php';
-?>
-
+<?php include 'config.php'; ?>
 <?php include 'adminHeader.php'; ?>
 
 <!-- Chat Widget Start -->
@@ -40,13 +37,13 @@ include 'config.php';
 <script>
 window.sender = "admin";
 </script>
-<script src="script.js"></script>
-<script src="chat-widget.js"></script>
+<script src="js/script.js"></script>
+<script src="js/chat-widget.js"></script>
 
 <!-- HTML Upload Inquiry and Assign to User -->
 
  <h1 class="family heading display-6 text-center mt-5">Assign Inquiry</h1>
-<form action="assignUser.php" method="POST" enctype="multipart/form-data">
+<form action="backend/assignUser.php" method="POST" enctype="multipart/form-data">
 <div class="container assignInquiryForm mt-3 mb-3">
   <input class="assignInquiryInput family border-0 col-4" type="file" name="inquiry_file" required>
   <select class="family  col-4 assignInquiryDropdown" name="assigned_to" required>
@@ -128,7 +125,7 @@ if (isset($_SESSION['error'])) {
         if($row['po_file']){
           echo "<a class='link-text' href='uploads/po/{$row['po_file']}' download>{$row['po_file']}</a>";
         }else{
-          echo "<form action='uploadPo.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center '>
+          echo "<form action='backend/uploadPo.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center '>
           <input class='col-5 poInput' type='hidden' name='id' value='" . $row["id"] . "'>
         
           <label class='custom-po-label mt-2 text-center' id='chooseLabel_" . $row["id"] . "'>
@@ -154,7 +151,7 @@ if (isset($_SESSION['error'])) {
         if($row['invoice_file']){
           echo "<a class='link-text' href='uploads/invoices/{$row['invoice_file']}' download>{$row['invoice_file']}</a>";
         }else{
-          echo "<form action='uploadInvoice.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center gap-3 flex-wrap'>
+          echo "<form action='backend/uploadInvoice.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center gap-3 flex-wrap'>
           <input class='col-5' type='hidden' name='id' value='" . $row['id'] . "'>
         
           <label class='custom-po-label mt-2' id='chooseInvoiceLabel_" . $row["id"] . "'>
@@ -178,7 +175,7 @@ if (isset($_SESSION['error'])) {
       echo "</td>
      <td>";
 if ($row['invoice_file'] && $row['payment_status'] === 'Pending') {
-    echo "<a class='link-text' href='paymentStatus.php?id={$row['id']}&payment_status=Received'>Received</a> |
+    echo "<a class='link-text' href='backend/paymentStatus.php?id={$row['id']}&payment_status=Received'>Received</a> |
           <a class='link-text' href='#'>Not Received</a>";
   } else if($row['payment_status'] === 'Received'){
     echo "<b class='green'>Received</b>";
@@ -208,7 +205,7 @@ echo "</td>
       <td>";
     if ($_SESSION['role'] === 'admin') {
       echo "
-        <form action='deleteInquiry.php' method='POST' onsubmit=\"return confirm('Are you sure you want to delete this inquiry and its files?');\">
+        <form action='backend/deleteInquiry.php' method='POST' onsubmit=\"return confirm('Are you sure you want to delete this inquiry and its files?');\">
           <input type='hidden' name='id' value='{$row['id']}'>
           <button class='btn-custom p-2 rounded text-white' type='submit'>Delete</button>
         </form>";

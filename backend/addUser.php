@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../config.php';
 session_start();
 
 $username = $_POST['username'];
@@ -10,13 +10,13 @@ $role = $_POST['role'];
 $check = mysqli_query($conn, "SELECT * FROM users WHERE username = '$username'");
 if (mysqli_num_rows($check) > 0) {
     $_SESSION['error'] = "Username already exists.";
-    header("Location: adminPanel.php");
+    header("Location: ../allUsers.php");
     exit();
 }
 
 // Insert new user
 mysqli_query($conn, "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')");
 $_SESSION['success'] = "User added successfully.";
-header("Location: allUsers.php");
+header("Location: ../allUsers.php");
 exit();
 ?>

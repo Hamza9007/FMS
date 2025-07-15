@@ -1,6 +1,6 @@
 <?php
 // sendMessage.php: Receives sender, receiver, and message; inserts into chat_messages
-include 'config.php';
+include '../config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sender = $_POST['sender'] ?? '';

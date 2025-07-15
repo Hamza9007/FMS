@@ -1,6 +1,6 @@
 <?php
 // getMessages.php: Fetches chat messages between two users
-include 'config.php';
+include '../config.php';
 
 $sender = $_GET['sender'] ?? '';
 $receiver = $_GET['receiver'] ?? '';

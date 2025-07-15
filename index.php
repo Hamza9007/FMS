@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>Login | File Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="login.css">
+  <link rel="stylesheet" href="css/login.css">
   <!-- Bootstrap CSS CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -26,7 +26,7 @@
                 </div>
 
                 <?php if (isset($_GET['error'])) echo "<p class='family error'>{$_GET['error']}</p>"; ?>
-                <form action="loginProcess.php" method="POST" class="modern-form">
+                <form action="backend/loginProcess.php" method="POST" class="modern-form">
 
                   <div data-mdb-input-init class="form-outline family mb-4">
                     <input class="form-control mb-3" type="text" name="username" placeholder="Username" required />
@@ -63,7 +63,7 @@
 
 
 <!-- Bootstrap JS CDN -->
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

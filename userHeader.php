@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title class="family">User Panel</title>
-    <link rel="stylesheet" href="user.css">
+    <link rel="stylesheet" href="css/user.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -18,11 +18,11 @@
   </button>
 
   <div class="collapse navbar-collapse justify-content-end" id="userNav">
-    <a href="logout.php" class="btn family col-1 text-white logout-btn">Logout</a>
+    <a href="backend/logout.php" class="btn family col-1 text-white logout-btn">Logout</a>
   </div>
 </nav>
 
-<script src="script.js"></script>
+<script src="js/script.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
 </body>

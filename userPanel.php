@@ -26,14 +26,14 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
       <td><a class='link-text' href='uploads/inquiries/{$row['file_name']}' download>{$row['file_name']}</a></td>
       <td>";
     if ($row['status'] === 'Pending') {
-      echo "<a class='link-text' href='updateStatus.php?id={$row['id']}&status=accepted'>Accept</a> |
-            <a class='link-text' href='updateStatus.php?id={$row['id']}&status=rejected'>Reject</a>";
+      echo "<a class='link-text' href='backend/updateStatus.php?id={$row['id']}&status=accepted'>Accept</a> |
+            <a class='link-text' href='backend/updateStatus.php?id={$row['id']}&status=rejected'>Reject</a>";
     } else if ($row['status'] === 'Accepted') {
       // after upload quotation only show file upladed successfully text
       if($row['quotation_file']){
         echo "Uploaded File";
       }else{
-        echo "<form action='uploadQuotation.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center gap-3 flex-wrap'>
+        echo "<form action='backend/uploadQuotation.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center gap-3 flex-wrap'>
         <input class='poInput' type='hidden' name='id' value='{$row['id']}'>
       
         <label class='custom-po-label mt-2' id='chooseQuotationLabel_{$row['id']}'>
@@ -54,8 +54,8 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
     <td>";
     if ($row['quotation_file']) {
       if($row['client_status'] === 'Pending'){
-        echo "<a class='link-text' href='clientStatus.php?id={$row['id']}&client_status=Accepted'>Accept</a> |
-              <a class='link-text' href='clientStatus.php?id={$row['id']}&client_status=Rejected'>Reject</a>";
+        echo "<a class='link-text' href='backend/clientStatus.php?id={$row['id']}&client_status=Accepted'>Accept</a> |
+              <a class='link-text' href='backend/clientStatus.php?id={$row['id']}&client_status=Rejected'>Reject</a>";
       }else if($row['client_status'] === 'Accepted'){
         echo "Accepted";
       }else{
@@ -105,6 +105,6 @@ echo "</td>
 window.sender = "<?php echo $_SESSION['username']; ?>";
 window.receiver = "admin";
 </script>
-<script src="script.js"></script>
-<script src="chat-widget.js"></script>
+<script src="js/script.js"></script>
+<script src="js/chat-widget.js"></script>
   

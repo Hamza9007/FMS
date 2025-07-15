@@ -15,7 +15,7 @@
     let lastMessageId = null;
 
     function fetchMessages() {
-      fetch(`getMessages.php?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`)
+      fetch(`backend/getMessages.php?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`)
         .then(res => res.json())
         .then(data => {
           if (data.success) {
@@ -67,7 +67,7 @@ if (isAtBottom) chat.scrollTop = chat.scrollHeight;
       const input = document.getElementById('chatInput');
       const msg = input.value.trim();
       if (!msg) return;
-      fetch('sendMessage.php', {
+      fetch('backend/sendMessage.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}&message=${encodeURIComponent(msg)}`
@@ -177,7 +177,7 @@ fetchMessages();
 
     function fetchMessages() {
       if (!receiver) { document.getElementById('chatMessages').innerHTML = '<i>Select a user to chat.</i>'; return; }
-      fetch(`getMessages.php?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`)
+      fetch(`backend/getMessages.php?sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}`)
         .then(res => res.json())
         .then(data => {
           if (data.success) {
@@ -207,7 +207,7 @@ if (isAtBottom) chat.scrollTop = chat.scrollHeight;
       const input = document.getElementById('chatInput');
       const msg = input.value.trim();
       if (!msg || !receiver) return;
-      fetch('sendMessage.php', {
+      fetch('backend/sendMessage.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `sender=${encodeURIComponent(sender)}&receiver=${encodeURIComponent(receiver)}&message=${encodeURIComponent(msg)}`
@@ -234,7 +234,7 @@ if (isAtBottom) chat.scrollTop = chat.scrollHeight;
     // Poll for notifications from all users when minimized
     function pollAdminNotifications() {
       if (!chatMinimized) return;
-      fetch('getAdminUnreadCounts.php', {
+      fetch('backend/getAdminUnreadCounts.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'lastSeen=' + encodeURIComponent(JSON.stringify(lastSeenMsgIds))
@@ -261,7 +261,7 @@ if (isAtBottom) chat.scrollTop = chat.scrollHeight;
 
     // Poll unread counts for user dropdown
     function pollAdminUnreadCounts() {
-      fetch('getAdminUnreadCounts.php', {
+      fetch('backend/getAdminUnreadCounts.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'lastSeen=' + encodeURIComponent(JSON.stringify(lastSeenMsgIds))

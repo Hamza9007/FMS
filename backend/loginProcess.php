@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'config.php';
+include '../config.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
@@ -15,12 +15,12 @@ if (mysqli_num_rows($result) === 1) {
     $_SESSION['login_time'] = time();
 
     if ($row['role'] == 'admin') {
-        header("Location: adminPanel.php");
+        header("Location: ../adminPanel.php");
     } else {
-        header("Location: userPanel.php");
+        header("Location: ../userPanel.php");
     }
 } else {
-    header("Location: index.php?error=Invalid credentials");
+    header("Location: ../index.php?error=Invalid credentials");
 }
 ?>
 

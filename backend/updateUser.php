@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../config.php';
 session_start();
 
 $id = $_POST['id'];
@@ -9,6 +9,6 @@ $role = $_POST['role'];
 
 mysqli_query($conn, "UPDATE users SET username='$username', password='$password', role='$role' WHERE id=$id");
 $_SESSION['success'] = "User updated.";
-header("Location: allUsers.php");
+header("Location: ../allUsers.php");
 exit();
 ?>

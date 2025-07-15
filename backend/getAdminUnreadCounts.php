@@ -1,6 +1,6 @@
 <?php
 // Returns unread message count for each user to admin
-include 'config.php';
+include '../config.php';
 
 // Get all users except admin
 $users = [];

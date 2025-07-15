@@ -3,9 +3,20 @@
 <?php include 'adminHeader.php'; ?>
 
 
+<div class="container mt-2">
+<?php if (isset($_SESSION['error'])): ?>
+<div class="alert alert-danger family text-center"><?php echo $_SESSION['error']; ?></div>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+<?php if (isset($_SESSION['success'])): ?>
+<div class="alert alert-success family text-center"><?php echo $_SESSION['success']; ?></div>
+<?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+</div>
+
 <div class="container add-user-form mt-5">
   <h3 class="family heading text-center">Add New User</h3>
-  <form action="addUser.php" method="POST" class="mb-4 text-center modern-form">
+  <form action="backend/addUser.php" method="POST" class="mb-4 text-center modern-form">
     <input type="text" name="username" placeholder="Username" required class="form-control mb-3">
     <input type="password" name="password" placeholder="Password" required class="form-control mb-3">
     <select name="role" class="form-control mb-3">
@@ -37,7 +48,7 @@
         <td>{$user['role']}</td>
         <td>
           <a href='editUser.php?id={$user['id']}' class='btn-custom p-2 rounded text-white'>Edit</a>
-          <a href='deleteUser.php?id={$user['id']}' onclick=\"return confirm('Delete this user?');\" class='btn-custom p-2 rounded text-white'>Delete</a>
+          <a href='backend/deleteUser.php?id={$user['id']}' onclick=\"return confirm('Delete this user?');\" class='btn-custom p-2 rounded text-white'>Delete</a>
         </td>
       </tr>";
     }
