@@ -5,7 +5,14 @@ session_start();
 $file = $_FILES['inquiry_file'];
 $name = basename($file['name']);
 $assigned_to = $_POST['assigned_to'];
-$target = "../uploads/inquiries/$name";
+$target = "E:/uploads/inquiries/$name";
+
+// Only allow PDF
+if (strtolower(pathinfo($name, PATHINFO_EXTENSION)) !== 'pdf' || $file['type'] !== 'application/pdf') {
+    $_SESSION['error'] = "Only PDF files are allowed.";
+    header("Location: ../adminPanel.php");
+    exit();
+}
 
 // Check if file name already exists in the database
 $check = mysqli_query($conn, "SELECT * FROM inquiries WHERE file_name = '$name'");

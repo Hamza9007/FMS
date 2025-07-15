@@ -18,17 +18,17 @@ if (isset($_POST['id'])) {
 
   if ($row) {
     // Delete files if they exist
-    if (!empty($row['file_name']) && file_exists("../uploads/inquiries/{$row['file_name']}")) {
-      unlink("../uploads/inquiries/{$row['file_name']}");
+    if (!empty($row['file_name']) && file_exists("E:/uploads/inquiries/{$row['file_name']}")) {
+      unlink("E:/uploads/inquiries/{$row['file_name']}");
     }
-    if (!empty($row['quotation_file']) && file_exists("../uploads/quotations/{$row['quotation_file']}")) {
-      unlink("../uploads/quotations/{$row['quotation_file']}");
+    if (!empty($row['quotation_file']) && file_exists("E:/uploads/quotations/{$row['quotation_file']}")) {
+      unlink("E:/uploads/quotations/{$row['quotation_file']}");
     }
-    if (!empty($row['invoice_file']) && file_exists("../uploads/invoices/{$row['invoice_file']}")) {
-      unlink("../uploads/invoices/{$row['invoice_file']}");
+    if (!empty($row['invoice_file']) && file_exists("E:/uploads/invoices/{$row['invoice_file']}")) {
+      unlink("E:/uploads/invoices/{$row['invoice_file']}");
     }
-    if (!empty($row['po_file']) && file_exists("../uploads/po/{$row['po_file']}")) {
-      unlink("../uploads/po/{$row['po_file']}");
+    if (!empty($row['po_file']) && file_exists("E:/uploads/po/{$row['po_file']}")) {
+      unlink("E:/uploads/po/{$row['po_file']}");
     }
 
     // Delete from DB

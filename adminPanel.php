@@ -45,7 +45,7 @@ window.sender = "admin";
  <h1 class="family heading display-6 text-center mt-5">Assign Inquiry</h1>
 <form action="backend/assignUser.php" method="POST" enctype="multipart/form-data">
 <div class="container assignInquiryForm mt-3 mb-3">
-  <input class="assignInquiryInput family border-0 col-4" type="file" name="inquiry_file" required>
+  <input class="assignInquiryInput family border-0 col-4" type="file" name="inquiry_file" accept=".pdf" required>
   <select class="family  col-4 assignInquiryDropdown" name="assigned_to" required>
     <option class="family" value="">Select User</option>
     <?php
@@ -94,10 +94,22 @@ if (isset($_SESSION['error'])) {
   
   <?php
 
-  $res = mysqli_query($conn, "SELECT * FROM inquiries");
+  // Pagination setup
+$perPage = 10;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$start = ($page - 1) * $perPage;
+
+// Get total count for pagination
+$countRes = mysqli_query($conn, "SELECT COUNT(*) as total FROM inquiries");
+$countRow = mysqli_fetch_assoc($countRes);
+$totalRows = $countRow['total'];
+$totalPages = ceil($totalRows / $perPage);
+
+// Get current page data
+$res = mysqli_query($conn, "SELECT * FROM inquiries LIMIT $start, $perPage");
   while ($row = mysqli_fetch_assoc($res)) {
     echo "<tr class='table-row-admin'>
-      <td><a class='link-text' href='uploads/inquiries/{$row['file_name']}' download>{$row['file_name']}</a></td>
+      <td><a class='link-text' href='download.php?type=inquiries&file={$row['file_name']}'>{$row['file_name']}</a></td>
       <td>{$row['assigned_to']}</td>
       <td>";
       if($row['status'] === 'Pending'){
@@ -108,7 +120,7 @@ if (isset($_SESSION['error'])) {
         echo "<b class='red'>Rejected</b>";
       }
       echo "</td>
-      <td>" . ($row['quotation_file'] ? "<a class='link-text' href='uploads/quotations/{$row['quotation_file']}' download>{$row['quotation_file']}</a>" : "Not Uploaded") . "</td>
+      <td>" . ($row['quotation_file'] ? "<a class='link-text' href='download.php?type=quotations&file={$row['quotation_file']}'>{$row['quotation_file']}</a>" : "Not Uploaded") . "</td>
       <td>";
       if($row['status'] === 'Rejected'){
         echo "";
@@ -123,14 +135,14 @@ if (isset($_SESSION['error'])) {
       <td>";
       if($row['client_status'] === 'Accepted'){
         if($row['po_file']){
-          echo "<a class='link-text' href='uploads/po/{$row['po_file']}' download>{$row['po_file']}</a>";
+          echo "<a class='link-text' href='download.php?type=po&file={$row['po_file']}'>{$row['po_file']}</a>";
         }else{
           echo "<form action='backend/uploadPo.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center '>
           <input class='col-5 poInput' type='hidden' name='id' value='" . $row["id"] . "'>
         
           <label class='custom-po-label mt-2 text-center' id='chooseLabel_" . $row["id"] . "'>
             Choose File
-            <input type='file' name='po' required hidden onchange='handlePOFileSelect(this, " . $row["id"] . ")'>
+            <input type='file' name='po' accept='.pdf' required hidden onchange='handlePOFileSelect(this, " . $row["id"] . ")'>
           </label>
         
           <span class='po-file-name mr-2' id='fileNameDisplay_" . $row["id"] . "' style='display: none;'>No file chosen</span>
@@ -149,14 +161,14 @@ if (isset($_SESSION['error'])) {
       <td>";
       if($row['po_file']){
         if($row['invoice_file']){
-          echo "<a class='link-text' href='uploads/invoices/{$row['invoice_file']}' download>{$row['invoice_file']}</a>";
+          echo "<a class='link-text' href='download.php?type=invoices&file={$row['invoice_file']}'>{$row['invoice_file']}</a>";
         }else{
           echo "<form action='backend/uploadInvoice.php' method='POST' enctype='multipart/form-data' class='d-flex align-items-center gap-3 flex-wrap'>
           <input class='col-5' type='hidden' name='id' value='" . $row['id'] . "'>
         
           <label class='custom-po-label mt-2' id='chooseInvoiceLabel_" . $row["id"] . "'>
             Choose File
-            <input type='file' name='invoice' required hidden onchange='handleInvoiceSelect(this, " . $row["id"] . ")'>
+            <input type='file' name='invoice' accept='.pdf' required hidden onchange='handleInvoiceSelect(this, " . $row["id"] . ")'>
           </label>
         
           <span class='po-file-name' id='invoiceNameDisplay_" . $row["id"] . "' style='display: none;'>No file chosen</span>
@@ -215,6 +227,25 @@ echo "</td>
   }
   ?>
 </table>
+
+<!-- Pagination Controls -->
+<?php if ($totalPages > 1): ?>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <?php if ($page > 1): ?>
+      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page-1; ?>">Previous</a></li>
+    <?php endif; ?>
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+      <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+        <a class="page-link family" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+      </li>
+    <?php endfor; ?>
+    <?php if ($page < $totalPages): ?>
+      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page+1; ?>">Next</a></li>
+    <?php endif; ?>
+  </ul>
+</nav>
+<?php endif; ?>
 </div>
 
 

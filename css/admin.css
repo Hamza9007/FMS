@@ -218,6 +218,30 @@ transform: translateY(-2px);
 text-decoration: none;
 }
 
+/* Pagination Controls */
+.pagination .page-link.family,
+.pagination .page-link.family:visited {
+  background-color: #fff;
+  color: #EE7724;
+  border: 1px solid #EE7724;
+}
+.pagination .page-item.active .page-link.family {
+  background-color: #EE7724;
+  color: #fff;
+  border-color: #EE7724;
+  
+}
+.pagination .page-link.family:hover,
+.pagination .page-link.family:focus,
+.pagination .page-link.family:active {
+  outline: none;
+  box-shadow: none;
+
+  background-color: #EE7724;
+  color: #fff;
+  border-color: #EE7724;
+}
+
 /* ===== Table Styling ===== */
 .table {
 border-radius: 12px;

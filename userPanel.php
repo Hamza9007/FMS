@@ -1,18 +1,37 @@
 <?php
 session_start();
+// TEMP: Show session ID for debugging
+// echo '<!-- Session ID: ' . session_id() . ' -->';
 if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'user') {
   header("Location: index.php");
   exit();
 }
 include 'config.php';
 $user = $_SESSION['username'];
-$res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
+// Pagination setup
+$perPage = 10;
+$page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+$start = ($page - 1) * $perPage;
+
+// Get total count for pagination
+$countRes = mysqli_query($conn, "SELECT COUNT(*) as total FROM inquiries WHERE assigned_to='$user'");
+$countRow = mysqli_fetch_assoc($countRes);
+$totalRows = $countRow['total'];
+$totalPages = ceil($totalRows / $perPage);
+
+// Get current page data
+$res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user' LIMIT $start, $perPage");
 ?>
 
 <?php include 'userHeader.php'; ?>
 
 <div class="p-4 mx-5">
 <h1 class="family subheading">My Inquiries</h1>
+<!-- error display on user panel -->
+<?php if (isset($_SESSION['error'])): ?>
+<div class="alert alert-danger family text-center"><?php echo $_SESSION['error']; ?></div>
+<?php unset($_SESSION['error']); ?>
+<?php endif; ?>
 <table class="family table text-center">
   <tr class="table-header">
     <th class="table-title">File</th>
@@ -23,7 +42,7 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
   </tr>
   <?php while ($row = mysqli_fetch_assoc($res)) {
     echo "<tr class='text-center'>
-      <td><a class='link-text' href='uploads/inquiries/{$row['file_name']}' download>{$row['file_name']}</a></td>
+      <td><a class='link-text' href='download.php?type=inquiries&file={$row['file_name']}'>{$row['file_name']}</a></td>
       <td>";
     if ($row['status'] === 'Pending') {
       echo "<a class='link-text' href='backend/updateStatus.php?id={$row['id']}&status=accepted'>Accept</a> |
@@ -38,7 +57,7 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
       
         <label class='custom-po-label mt-2' id='chooseQuotationLabel_{$row['id']}'>
           Choose File
-          <input type='file' name='quotation' required hidden onchange='handleQuotationSelect(this, {$row['id']})'>
+          <input type='file' name='quotation' accept='.pdf' required hidden onchange='handleQuotationSelect(this, {$row['id']})'>
         </label>
       
         <span class='po-file-name' id='quotationFileName_{$row['id']}' style='display: none;'>No file chosen</span>
@@ -50,7 +69,7 @@ $res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user'");
       echo "Rejected";
     }
     echo "</td>
-    <td>" .($row['quotation_file'] ? "<a class='link-text' href='uploads/quotations/{$row['quotation_file']}' download>{$row['quotation_file']}</a>" : "Not Uploaded") . "</td>
+    <td>" .($row['quotation_file'] ? "<a class='link-text' href='download.php?type=quotations&file={$row['quotation_file']}'>{$row['quotation_file']}</a>" : "Not Uploaded") . "</td>
     <td>";
     if ($row['quotation_file']) {
       if($row['client_status'] === 'Pending'){
@@ -76,6 +95,26 @@ echo "</td>
   }
   ?>
 </table>
+
+<!-- Pagination Controls -->
+<?php if ($totalPages > 1): ?>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <?php if ($page > 1): ?>
+      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page-1; ?>">Previous</a></li>
+    <?php endif; ?>
+    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+      <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+        <a class="page-link family" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+      </li>
+    <?php endfor; ?>
+    <?php if ($page < $totalPages): ?>
+      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page+1; ?>">Next</a></li>
+    <?php endif; ?>
+  </ul>
+</nav>
+<?php endif; ?>
 </div>
 
 <!-- Chat Widget Start -->
