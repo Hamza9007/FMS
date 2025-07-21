@@ -19,8 +19,8 @@ $countRow = mysqli_fetch_assoc($countRes);
 $totalRows = $countRow['total'];
 $totalPages = ceil($totalRows / $perPage);
 
-// Get current page data
-$res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user' LIMIT $start, $perPage");
+// Get current page data, most recent first
+$res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user' ORDER BY id DESC LIMIT $start, $perPage");
 ?>
 
 <?php include 'userHeader.php'; ?>

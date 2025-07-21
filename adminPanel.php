@@ -9,7 +9,7 @@
   </div>
   <div style="padding:8px 10px 0 10px;">
     <select id="chatUserSelect" style="width:100%;padding:6px 8px;border-radius:6px;border:1px solid #ccc;">
-      <option value="">Select User</option>
+    <option value="">Select User</option>
       <?php 
       $users = mysqli_query($conn, "SELECT username FROM users WHERE role='user'");
       while ($u = mysqli_fetch_assoc($users)) {
@@ -42,11 +42,11 @@ window.sender = "admin";
 
 <!-- HTML Upload Inquiry and Assign to User -->
 
- <h1 class="family heading display-6 text-center mt-5">Assign Inquiry</h1>
+ <h1 class="family heading text-center mt-3">Assign Inquiry</h1>
 <form action="backend/assignUser.php" method="POST" enctype="multipart/form-data">
 <div class="container assignInquiryForm mt-3 mb-3">
-  <input class="assignInquiryInput family border-0 col-4" type="file" name="inquiry_file" accept=".pdf" required>
-  <select class="family  col-4 assignInquiryDropdown" name="assigned_to" required>
+  <input class="assignInquiryInput family border-0 col-5" type="file" name="inquiry_file" accept=".pdf" required>
+  <select class="family  col-5 assignInquiryDropdown" name="assigned_to" required>
     <option class="family" value="">Select User</option>
     <?php
     $users = mysqli_query($conn, "SELECT * FROM users WHERE role = 'user'");
@@ -59,7 +59,31 @@ window.sender = "admin";
 </div></form>
 <!-- Show All Inquiries -->
  <div class="p-4 mx-5">
-<h3 class="family subheading">All Inquiries</h3>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+  <h3 class="family subheading mb-0">All Inquiries</h3>
+  <!-- User Filter and Inquiry Search in one form -->
+  <form method="get" class="d-flex flex-wrap align-items-center gap-2 mt-2" style="max-width:650px;">
+    <div class="d-flex align-items-center me-2 mr-2" style="min-width: 200px;">
+      <input type="text" name="inquiry_search" class="form-control family" placeholder="Search Inquiry" value="<?php echo isset($_GET['inquiry_search']) ? htmlspecialchars($_GET['inquiry_search']) : ''; ?>">
+    </div>
+    <button type="submit" class="btn btn-primary family mb-0 me-2 mr-4">Search</button>
+    <div class="d-flex align-items-center">
+      <label for="userFilter" class="form-label filterLabel family mb-0 mr-1 me-2">Filter by User :</label>
+      <div class="custom-select-wrapper" style="min-width: 150px;">
+        <select id="userFilter" name="user" class="form-select filterSelect family" onchange="this.form.submit()">
+        <option value="">All Users</option>
+        <?php
+          $selectedUser = isset($_GET['user']) ? $_GET['user'] : '';
+          $userList = mysqli_query($conn, "SELECT username FROM users WHERE role='user' ORDER BY username ASC");
+          while ($u = mysqli_fetch_assoc($userList)) {  
+            $selected = ($selectedUser === $u['username']) ? 'selected' : ''; 
+            echo "<option value='{$u['username']}' $selected>{$u['username']}</option>";
+          }
+        ?>
+      </select>
+    </div>
+  </form>
+</div>
 
 <!-- Show Success and Error Messages -->
 <?php if (isset($_GET['deleted'])): ?>
@@ -94,19 +118,37 @@ if (isset($_SESSION['error'])) {
   
   <?php
 
-  // Pagination setup
+  // Filter by user and/or inquiry search
+$userFilter = isset($_GET['user']) && $_GET['user'] !== '' ? $_GET['user'] : '';
+$searchTerm = isset($_GET['inquiry_search']) && $_GET['inquiry_search'] !== '' ? $_GET['inquiry_search'] : '';
+
+$whereParts = [];
+if ($userFilter !== '') {
+    $userFilterEscaped = mysqli_real_escape_string($conn, $userFilter);
+    $whereParts[] = "assigned_to='$userFilterEscaped'";
+}
+if ($searchTerm !== '') {
+    $searchTermEscaped = mysqli_real_escape_string($conn, $searchTerm);
+    $whereParts[] = "file_name LIKE '%$searchTermEscaped%'";
+}
+$where = '';
+if (count($whereParts) > 0) {
+    $where = 'WHERE ' . implode(' AND ', $whereParts);
+}
+
+// Pagination setup
 $perPage = 10;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $perPage;
 
 // Get total count for pagination
-$countRes = mysqli_query($conn, "SELECT COUNT(*) as total FROM inquiries");
+$countRes = mysqli_query($conn, "SELECT COUNT(*) as total FROM inquiries $where");
 $countRow = mysqli_fetch_assoc($countRes);
 $totalRows = $countRow['total'];
 $totalPages = ceil($totalRows / $perPage);
 
-// Get current page data
-$res = mysqli_query($conn, "SELECT * FROM inquiries LIMIT $start, $perPage");
+// Get current page data, most recent first
+$res = mysqli_query($conn, "SELECT * FROM inquiries $where ORDER BY id DESC LIMIT $start, $perPage");
   while ($row = mysqli_fetch_assoc($res)) {
     echo "<tr class='table-row-admin'>
       <td><a class='link-text' href='download.php?type=inquiries&file={$row['file_name']}'>{$row['file_name']}</a></td>
