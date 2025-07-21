@@ -1,5 +1,182 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Unbounded:wght@200..900&display=swap');
 
+/* Modern Minimal Header */
+.app-header {
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 1rem 2rem;
+  top: 0;
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+.family{
+font-family: 'Unbounded', sans-serif;
+}
+.header-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2957A4;
+  letter-spacing: -0.5px;
+}
+
+.divider {
+  color: #e0e0e0;
+  font-weight: 300;
+  font-size: 1.8rem;
+  line-height: 1;
+  margin-top: -4px;
+}
+
+.page-title {
+  font-size: 1.1rem;
+  color: #444;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.user-actions {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.user-profile:hover {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+/* Make the entire user profile area clickable */
+.user-profile::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.welcome-text {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2957A4 0%, #1a3a6f 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(41, 87, 164, 0.2);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  pointer-events: none;
+  display: block !important; /* Ensure it's always in the document flow */
+}
+
+/* Show dropdown on hover */
+.user-profile:hover .dropdown-menu,
+/* Keep dropdown open when hovering over it */
+.dropdown-menu:hover,
+/* Show when focus-within for better accessibility */
+.user-profile:focus-within .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Ensure the dropdown stays open when hovering over it */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 0;
+  right: 0;
+  height: 16px;
+  background: transparent;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  color: #444;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  background: white;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-item:hover {
+  background: #f8f9fa;
+  color: #2957A4;
+}
+
+.dropdown-item svg {
+  width: 16px;
+  height: 16px;
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.dropdown-item:hover svg {
+  color: #2957A4;
+}
+
 /* Chat Widget Styles */
 #chatWidget {
   font-family: 'Unbounded', sans-serif;

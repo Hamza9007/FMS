@@ -13,20 +13,54 @@ $perPage = 10;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 $start = ($page - 1) * $perPage;
 
-// Get total count for pagination
-$countRes = mysqli_query($conn, "SELECT COUNT(*) as total FROM inquiries WHERE assigned_to='$user'");
+// Build search condition
+$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, trim($_GET['search'])) : '';
+$where = "WHERE assigned_to='$user'";
+
+if (!empty($search)) {
+    $where .= " AND file_name LIKE '%$search%'";
+}
+
+// Get total count for pagination with search
+$countQuery = "SELECT COUNT(*) as total FROM inquiries $where";
+$countRes = mysqli_query($conn, $countQuery);
 $countRow = mysqli_fetch_assoc($countRes);
 $totalRows = $countRow['total'];
 $totalPages = ceil($totalRows / $perPage);
 
-// Get current page data, most recent first
-$res = mysqli_query($conn, "SELECT * FROM inquiries WHERE assigned_to='$user' ORDER BY id DESC LIMIT $start, $perPage");
+// Get current page data with search
+$query = "SELECT * FROM inquiries $where ORDER BY id DESC LIMIT $start, $perPage";
+$res = mysqli_query($conn, $query);
 ?>
 
 <?php include 'userHeader.php'; ?>
 
 <div class="p-4 mx-5">
-<h1 class="family subheading">My Inquiries</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="family subheading mb-0">My Inquiries</h1>
+  <!-- Search Form -->
+  <div class="d-flex">
+    <form method="get" class="d-flex align-items-center gap-2">
+      <div class="position-relative">
+        <input type="text" 
+               name="search" 
+               class="form-control family" 
+               placeholder="Search Inquiries" 
+               value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+               >
+      </div>
+      <button type="submit" class="btn-custom px-3 ml-2 py-1 text-white family rounded">
+        Search  
+      </button>
+      <?php if(isset($_GET['search']) && !empty($_GET['search'])): ?>
+        <a href="userPanel.php" class="logout-btn ml-2 text-white family rounded">
+          Clear
+        </a>
+      <?php endif; ?>
+  </form>
+  </div>
+</div>
+
 <!-- error display on user panel -->
 <?php if (isset($_SESSION['error'])): ?>
 <div class="alert alert-danger family text-center"><?php echo $_SESSION['error']; ?></div>
@@ -102,15 +136,15 @@ echo "</td>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <?php if ($page > 1): ?>
-      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page-1; ?>">Previous</a></li>
+      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page-1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>">Previous</a></li>
     <?php endif; ?>
     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
       <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-        <a class="page-link family" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
+        <a class="page-link family" href="?page=<?php echo $i; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>"><?php echo $i; ?></a>
       </li>
     <?php endfor; ?>
     <?php if ($page < $totalPages): ?>
-      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page+1; ?>">Next</a></li>
+      <li class="page-item"><a class="page-link family" href="?page=<?php echo $page+1; ?><?php echo !empty($search) ? '&search=' . urlencode($search) : ''; ?>">Next</a></li>
     <?php endif; ?>
   </ul>
 </nav>
