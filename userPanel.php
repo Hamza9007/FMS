@@ -32,7 +32,6 @@ $totalPages = ceil($totalRows / $perPage);
 $query = "SELECT * FROM inquiries $where ORDER BY id DESC LIMIT $start, $perPage";
 $res = mysqli_query($conn, $query);
 ?>
-
 <?php include 'userHeader.php'; ?>
 
 <div class="p-4 mx-5">
@@ -66,6 +65,7 @@ $res = mysqli_query($conn, $query);
 <div class="alert alert-danger family text-center"><?php echo $_SESSION['error']; ?></div>
 <?php unset($_SESSION['error']); ?>
 <?php endif; ?>
+
 <table class="family table text-center">
   <tr class="table-header">
     <th class="table-title">File</th>
