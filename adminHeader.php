@@ -12,9 +12,10 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="60">
     <title><?= $_SESSION['username'];?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="css/admin.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -46,7 +47,7 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] !== 'admin') {
 
 
 <script src="js/script.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script> -->
 </body>
 </html>

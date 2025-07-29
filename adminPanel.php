@@ -45,8 +45,8 @@ window.sender = "admin";
  <h1 class="family heading text-center mt-3">Assign Inquiry</h1>
 <form action="backend/assignUser.php" method="POST" enctype="multipart/form-data">
 <div class="container assignInquiryForm mt-3 mb-3">
-  <input class="assignInquiryInput family border-0 col-5" type="file" name="inquiry_file" accept=".pdf" required>
-  <select class="family  col-5 assignInquiryDropdown" name="assigned_to" required>
+  <input class="assignInquiryInput family border-0 col-4" type="file" name="inquiry_file" accept=".pdf" required>
+  <select class="family  col-4 assignInquiryDropdown" name="assigned_to" required>
     <option class="family" value="">Select User</option>
     <?php
     $users = mysqli_query($conn, "SELECT * FROM users WHERE role = 'user'");
