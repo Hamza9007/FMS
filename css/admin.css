@@ -305,7 +305,7 @@ color: #333;
 .table th,
 .table td {
 padding: 15px 20px;
-vertical-align: middle;
+vertical-align: bottom;
 text-align: center;
 border-color: #eaeaea;
 }

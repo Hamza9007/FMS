@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2025 at 07:58 AM
+-- Generation Time: Jul 30, 2025 at 10:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -35,6 +35,18 @@ CREATE TABLE `chat_messages` (
   `sent_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `chat_messages`
+--
+
+INSERT INTO `chat_messages` (`id`, `sender`, `receiver`, `message`, `sent_at`) VALUES
+(181, 'admin', 'Waseem', 'hi', '2025-07-21 15:01:50'),
+(182, 'Waseem', 'admin', 'yes', '2025-07-21 15:02:03'),
+(183, 'Waseem', 'admin', '?', '2025-07-21 15:02:41'),
+(184, 'Waseem', 'admin', 'hi', '2025-07-23 11:30:15'),
+(185, 'admin', 'Waseem', '5', '2025-07-23 11:30:26'),
+(186, 'Waseem', 'admin', '55', '2025-07-23 11:30:32');
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +65,13 @@ CREATE TABLE `inquiries` (
   `invoice_file` varchar(255) DEFAULT NULL,
   `payment_status` enum('Pending','Received','Rejected') DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inquiries`
+--
+
+INSERT INTO `inquiries` (`id`, `file_name`, `assigned_to`, `status`, `quotation_file`, `uploaded_at`, `client_status`, `po_file`, `invoice_file`, `payment_status`) VALUES
+(130, 'inquiry.pdf', 'Waseem', 'Pending', NULL, NULL, 'Pending', NULL, NULL, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -75,7 +94,7 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (1, 'Hamza', 'admin123', 'admin'),
 (11, 'Usama', '123456', 'user'),
 (12, 'Waseem', '123456', 'user'),
-(16, 'Asad', '123456', 'user');
+(19, 'Rizwan', '123456', 'user');
 
 --
 -- Indexes for dumped tables
@@ -108,19 +127,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
